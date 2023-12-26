@@ -1,0 +1,67 @@
+https://www.spoj.com/problems/EKO/
+
+code:
+//week4_ass
+#include <iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+bool possibleSolution(vector<long long int>treeHeights, long long int m, long long int n, long long int sol)
+{
+	long long int woodGathered=0;
+	for(long long int i=0;i<n;i++)
+	{
+		if(treeHeights[i]>sol)
+		{
+			woodGathered+=treeHeights[i]-sol;
+		}
+	}
+	return woodGathered>=m;
+}
+
+long long int solution(vector<long long int>treeHeights, long long int m, long long int n)
+{
+	//we will use binarry search 
+	//we 1st need to set up the searchSpace
+	long long int start=0;
+	long long int end=*max_element(treeHeights.begin(), treeHeights.end());
+	long long int mid=start+(end-start)/2;
+	long long int ans=0;
+	while(start<=end)
+	{
+		mid=start+(end-start)/2;
+		if(possibleSolution(treeHeights, m, n, mid))//if we get the possible solution(the required height of the blade) then we will move the searchSpace to the right
+		// this is imp cuz we need minimal amount of wood wastage(the ans should be as close to the m value)
+		// so if we go to the right the blade height increases and thus we will be able to cut less wood
+		{
+			ans=mid;
+			start=mid+1;
+		}
+		else// the blade height is too high(mid) so we r not getting the required wood so we need to lower the height of the blade
+		//so we have to move the searchSpace to the left 
+		//so that we can cut more wood
+		{
+			end=mid-1;
+		}
+	}
+	return ans;
+	
+}
+
+int main() {
+	// your code goes here
+	
+	long long int m,n, treeHeight;
+	//n is the number of trees in the forest
+	//m is the wood (in meters) need by lumberjack
+	vector<long long int>treeHeights;
+	cin>>n>>m;
+	for(long long int i=0;i<n;i++)
+	{
+		cin>>treeHeight;
+		treeHeights.push_back(treeHeight);
+	}
+	cout<<solution(treeHeights, m, n)<<endl;
+	return 0;
+}
