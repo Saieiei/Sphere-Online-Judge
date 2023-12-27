@@ -1,4 +1,4 @@
-https://www.spoj.com/submit/PRATA/
+//https://www.spoj.com/submit/PRATA/
 #include<iostream>
 #include<vector>
 #include<algorithm>
