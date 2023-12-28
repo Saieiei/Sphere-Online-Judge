@@ -18,7 +18,7 @@ bool possibleSolution(vector<int>cooksRanks, int np, int sol)
         int r = cooksRanks[i];
         int timeTaken = 0;
 
-        while (true)
+        while (true) //because this is a work that can be done simultaneously
         {
             if (timeTaken + j * r <= sol)
             {
